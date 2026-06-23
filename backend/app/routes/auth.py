@@ -1,7 +1,7 @@
-from fastapi import Depends
+from fastapi import Depends, APIRouter
 from sqlalchemy.orm import Session
 from backend.app.utils.hashing import hash_password
-from backend.app.schemas.user import UserRegister
+from backend.app.schemas.users import UserRegister
 from backend.app.models.users import User
 from backend.app.db import get_db
 from backend.app.schemas.users import UserLogin
@@ -16,13 +16,12 @@ router = APIRouter(
 )
 
 @router.post("/register")
-def register(user : UserRegister, db : Session = Depends(get_db)):
-    
+def register(user : UserRegister, db : Session = Depends(get_db)):  
     new_user = User(
         username=user.username,
         email=user.email,
         password_hash=hash_password(user.password), 
-        role="ADMIN"
+        role="User"
     )
 
     db.add(new_user)
@@ -53,7 +52,9 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
         }
 
     token = create_access_token(
+        {
         "sub" : db_user.username
+        }
     )
     return {
         "access_token": token,
