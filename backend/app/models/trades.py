@@ -12,6 +12,10 @@ class Trade(Base):
 
     price = Column(Integer)
 
+    buyer_id = Column(Integer, ForeignKey("users.id"))
+
+    seller_id = Column(Integer, ForeignKey("users.id"))
+
     quantity = Column(Integer)
 
     executed_at = Column(DateTime)

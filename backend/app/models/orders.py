@@ -8,7 +8,7 @@ class Order(Base):
 
     user_id = Column(Integer, ForeignKey("users.id"))
 
-    side = Column(String, nullable=False)   # BUY / SELL
+    side = Column(String, nullable=False)  
 
     price = Column(Integer, nullable=False)
 
