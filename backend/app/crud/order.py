@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-
+from backend.app.services.orderbook import add_order, remove_order
 from backend.app.models.orders import Order
 from backend.app.schemas.orders import OrderCreate
 
@@ -20,6 +20,7 @@ def create_order(
     db.add(order)
     db.commit()
     db.refresh(order)
+    add_order(order)
 
     return order
 
@@ -65,6 +66,7 @@ def cancel_order(
 
     db.commit()
     db.refresh(order)
+    remove_order(order)
 
     return order
 

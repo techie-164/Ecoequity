@@ -16,6 +16,8 @@ class User(Base):
 
     role = Column(String, nullable=False)
 
+    carbon_coins = Column(Integer, nullable=False)
+
     carbon_balance = Column(Integer, default=0)
 
     emission_limit = Column(Integer)
